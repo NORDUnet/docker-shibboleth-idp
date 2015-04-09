@@ -7,8 +7,8 @@ RUN apt-get update && \
     apt-get install -y wget
 
 # Download and install jetty
-ENV JETTY_VERSION 9.2.7
-ENV RELEASE_DATE v20150116
+ENV JETTY_VERSION 9.2.10
+ENV RELEASE_DATE v20150310
 RUN wget http://download.eclipse.org/jetty/stable-9/dist/jetty-distribution-${JETTY_VERSION}.${RELEASE_DATE}.tar.gz && \
     tar -xzvf jetty-distribution-${JETTY_VERSION}.${RELEASE_DATE}.tar.gz && \
     rm -rf jetty-distribution-${JETTY_VERSION}.${RELEASE_DATE}.tar.gz && \
@@ -18,6 +18,14 @@ RUN wget http://download.eclipse.org/jetty/stable-9/dist/jetty-distribution-${JE
 RUN useradd jetty && \
     chown -R jetty:jetty /opt/jetty && \
     rm -rf /opt/jetty/webapps.demo
+
+# Add configuration files
+ADD jetty_conf /jetty_conf
+RUN mv /jetty_conf/start.ini /opt/jetty/start.ini && \
+    mv /jetty_conf/jetty-ssl.xml /opt/jetty/etc/jetty-ssl.xml && \
+    mv /jetty_conf/jetty-https.xml /opt/jetty/etc/jetty-https.xml && \
+    mv /jetty_conf/ssl.mod /opt/jetty/modules/ssl.mod && \
+    mv /jetty_conf/idp.xml /opt/jetty/webapps/idp.xml
 
 # Download shibboleth-idp
 ENV IDP_VERSION 3.0.0

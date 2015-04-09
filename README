@@ -1,0 +1,5 @@
+How to run:
+
+docker run -it -e ENTITY_ID=entityid -e HOSTNAME=hostname -e SCOPE=scope -e COOKIE_PASSWORD=cookiepass -e TLS_PASSWORD=tlspass -v docker-shibboleth-idp/conf/:/opt/shibboleth-idp/conf/ -v docker-shibboleth-idp/credentials/:/opt/shibboleth-idp/credentials/ -v docker-shibboleth-idp/edit-webapp/:/opt/shibboleth-idp/edit-webapp/ -v docker-shibboleth-idp/logs/:/opt/jetty/logs/ shibidp install
+
+docker run -d -e PKCS12_PASSWORD=pkcs12pass -v docker-shibboleth-idp/conf/:/opt/shibboleth-idp/conf/ -v docker-shibboleth-idp/credentials/:/opt/shibboleth-idp/credentials/ -v docker-shibboleth-idp/edit-webapp/:/opt/shibboleth-idp/edit-webapp/ -v docker-shibboleth-idp/logs/:/opt/jetty/logs/ -p 443:8443 shibidp
