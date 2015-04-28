@@ -6,6 +6,12 @@ RUN apt-get update && \
     apt-get update --fix-missing && \ 
     apt-get install -y wget
 
+# Add UnlimitedJCEPolicy
+# You manually have to download and unzip jce_policy-8.zip from Oracle,
+# http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html
+ADD UnlimitedJCEPolicyJDK8/local_policy.jar ${JAVA_HOME}/jre/lib/security/
+ADD UnlimitedJCEPolicyJDK8/US_export_policy.jar ${JAVA_HOME}/jre/lib/security/
+
 # Download and install jetty
 ENV JETTY_VERSION 9.2.10
 ENV RELEASE_DATE v20150310

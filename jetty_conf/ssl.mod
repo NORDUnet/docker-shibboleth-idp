@@ -8,13 +8,17 @@ server
 [xml]
 etc/jetty-ssl.xml
 
+[files]
+/opt/shibboleth-idp/credentials/idp-browser.p12
+
 [ini-template]
 ### SSL Keystore Configuration
 # define the port to use for secure redirection
 jetty.secure.port=8443
 
-## Setup a demonstration keystore and truststore
+## Setup a keystore
 jetty.keystore=/opt/shibboleth-idp/credentials/idp-browser.p12
+jetty.keystore.type=PKCS12
 
 ## Set the demonstration passwords.
 ## Note that OBF passwords are not secure, just protected from casual observation
