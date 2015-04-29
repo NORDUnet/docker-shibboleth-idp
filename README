@@ -8,11 +8,11 @@ How to install:
 
 Install a fresh IdP with empty directories volume mounted or upgrade from version 2 by volume mounting existing conf and credentials directories.
 
-$ docker run -it -e ENTITY_ID=entityid -e HOSTNAME=hostname -e SCOPE=scope -e COOKIE_PASSWORD=cookiepass -e IDP_TLS_PASSWORD=tlspass -v docker-shibboleth-idp/conf/:/opt/shibboleth-idp/conf/ -v docker-shibboleth-idp/credentials/:/opt/shibboleth-idp/credentials/ -v docker-shibboleth-idp/edit-webapp/:/opt/shibboleth-idp/edit-webapp/ -v docker-shibboleth-idp/logs/:/opt/jetty/logs/ shibboleth-idp3 install
+$ docker run -it -e ENTITY_ID=entityid -e HOSTNAME=hostname -e SCOPE=scope -e COOKIE_PASSWORD=cookiepass -e IDP_TLS_PASSWORD=tlspass -v docker-shibboleth-idp/conf/:/opt/shibboleth-idp/conf/ -v docker-shibboleth-idp/credentials/:/opt/shibboleth-idp/credentials/ -v docker-shibboleth-idp/metadata/:/opt/shibboleth-idp/metadata/ -v docker-shibboleth-idp/edit-webapp/:/opt/shibboleth-idp/edit-webapp/ -v docker-shibboleth-idp/logs/:/opt/jetty/logs/ shibboleth-idp3 install
 
 How to run:
 
 Make sure you volume mount the existing directories from the above installation. When the container starts a new .war file will be created.
 
-$ docker run -d -e JETTY_TLS_PASSWORD=tlspass -v docker-shibboleth-idp/conf/:/opt/shibboleth-idp/conf/ -v docker-shibboleth-idp/credentials/:/opt/shibboleth-idp/credentials/ -v docker-shibboleth-idp/edit-webapp/:/opt/shibboleth-idp/edit-webapp/ -v docker-shibboleth-idp/logs/:/opt/jetty/logs/ -p 443:8443 shibboleth-idp3
+$ docker run -d -e JETTY_TLS_PASSWORD=tlspass -v docker-shibboleth-idp/conf/:/opt/shibboleth-idp/conf/ -v docker-shibboleth-idp/credentials/:/opt/shibboleth-idp/credentials/ -v docker-shibboleth-idp/metadata/:/opt/shibboleth-idp/metadata/ -v docker-shibboleth-idp/edit-webapp/:/opt/shibboleth-idp/edit-webapp/ -v docker-shibboleth-idp/logs/:/opt/jetty/logs/ -p 443:8443 shibboleth-idp3
 
