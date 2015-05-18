@@ -1,4 +1,5 @@
 #!/bin/sh -x
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 
 # shibboleth-identity-provider source dir
 cd /opt/shibboleth-identity-provider-${IDP_VERSION}
