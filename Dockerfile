@@ -1,24 +1,21 @@
-FROM java:7
-MAINTAINER Johan Lundberg <lundberg@nordu.net>
+FROM java:8
+MAINTAINER Markus Krogh <markus@nordu.net>
 
 # Install packages
 RUN apt-get update && \ 
     apt-get update --fix-missing && \ 
     apt-get install -y wget
 
-# Add UnlimitedJCEPolicy
-# You manually have to download and unzip jce_policy-8.zip from Oracle,
+# UnlimitedJCEPolicy - OpenJDK includes JCE
+# If not manually have to download and unzip jce_policy-8.zip from Oracle,
 # http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html
-ADD UnlimitedJCEPolicyJDK8/local_policy.jar ${JAVA_HOME}/jre/lib/security/
-ADD UnlimitedJCEPolicyJDK8/US_export_policy.jar ${JAVA_HOME}/jre/lib/security/
 
 # Download and install jetty
-ENV JETTY_VERSION 9.2.10
-ENV RELEASE_DATE v20150310
-RUN wget http://download.eclipse.org/jetty/stable-9/dist/jetty-distribution-${JETTY_VERSION}.${RELEASE_DATE}.tar.gz && \
-    tar -xzvf jetty-distribution-${JETTY_VERSION}.${RELEASE_DATE}.tar.gz && \
-    rm -rf jetty-distribution-${JETTY_VERSION}.${RELEASE_DATE}.tar.gz && \
-    mv jetty-distribution-${JETTY_VERSION}.${RELEASE_DATE}/ /opt/jetty
+ENV JETTY_VERSION 9.3.13.v20161014
+RUN wget https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/${JETTY_VERSION}/jetty-distribution-${JETTY_VERSION}.tar.gz && \
+    tar xf jetty-distribution-${JETTY_VERSION}.tar.gz && \
+    rm -rf jetty-distribution-${JETTY_VERSION}.tar.gz && \
+    mv jetty-distribution-${JETTY_VERSION}/ /opt/jetty
 
 # Configure Jetty user and clean up install
 RUN useradd jetty && \
@@ -34,7 +31,7 @@ RUN mv /jetty_conf/start.ini /opt/jetty/start.ini && \
     mv /jetty_conf/idp.xml /opt/jetty/webapps/idp.xml
 
 # Download shibboleth-idp
-ENV IDP_VERSION 3.0.0
+ENV IDP_VERSION 3.2.1
 RUN wget https://shibboleth.net/downloads/identity-provider/${IDP_VERSION}/shibboleth-identity-provider-${IDP_VERSION}.tar.gz && \
     tar -xzvf shibboleth-identity-provider-${IDP_VERSION}.tar.gz && \
     rm -rf shibboleth-identity-provider-${IDP_VERSION}.tar.gz && \
